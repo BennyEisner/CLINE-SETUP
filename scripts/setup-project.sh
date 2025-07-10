@@ -23,10 +23,10 @@ mkdir -p scripts
 mkdir -p workflows/development
 
 echo "Copying core clinerules files..."
-cp "$SETUP_REPO_DIR/.clinerules/01-coding-standards.md" .clinerules/
+cp "$SETUP_REPO_DIR/.clinerules/01-coding-standards-example.md" .clinerules/
 cp "$SETUP_REPO_DIR/.clinerules/initializememorybank.md" .clinerules/
 echo "Copying clinerules-bank structure..."
-cp "$SETUP_REPO_DIR/clinerules-bank/01-coding-standards.md" clinerules-bank/
+cp "$SETUP_REPO_DIR/clinerules-bank/01-coding-standards-example.md" clinerules-bank/
 # Copy environments directory structure (but not specific language files)
 mkdir -p clinerules-bank/environments
 
