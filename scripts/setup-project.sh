@@ -44,6 +44,7 @@ chmod +x scripts/activate-rules.sh
 
 echo "Copying workflows..."
 cp "$SETUP_REPO_DIR/workflows/development/setup-project.md" workflows/development/
+cp "$SETUP_REPO_DIR/workflows/development/initialize-memory-bank-workflow.md" workflows/development/
 
 echo "Initializing project context..."
 PROJECT_NAME=$(basename "$PROJECT_DIR")
