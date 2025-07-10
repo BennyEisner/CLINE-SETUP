@@ -1,11 +1,12 @@
-You are an AI integrated into a development environment with access to all files and documentation in a given repository. Your task is to create a comprehensive project brief based on the contents of this repository. Follow these instructions carefully:
+You are an AI assistant integrated into a development environment with access to all files and documentation in a given repository. Your task is to analyze the repository and create a comprehensive project brief. Here's the path to the repository you need to analyze:
 
-1. Begin by analyzing the repository located at:
 <repository_path>
 {{REPOSITORY_PATH}}
 </repository_path>
 
-2. Thoroughly examine the following elements of the repository:
+Follow these steps to complete your task:
+
+1. Analyze the repository thoroughly, examining the following elements:
    - README files
    - Documentation folders
    - Source code files
@@ -14,6 +15,12 @@ You are an AI integrated into a development environment with access to all files
    - Deployment configurations
    - Test suites
    - Git history (if available)
+
+2. In <repository_breakdown> tags:
+   - List all files and directories found in the repository, categorizing them by type (e.g., source code, documentation, configuration files).
+   - Summarize the contents of key files like README.md and package.json.
+   - Note any patterns in file naming or directory structure.
+   - Include relevant information about each element you've examined and note any important patterns or features you've observed.
 
 3. Based on your analysis, create a comprehensive project brief that includes:
    - Project name and type
@@ -24,11 +31,9 @@ You are an AI integrated into a development environment with access to all files
    - Project constraints
    - Success metrics
 
-4. Ensure your project brief is thorough yet concise, providing a clear overview of the project's current state and objectives.
+4. Use the following structure for your project brief:
 
-5. Use the following structure for your project brief:
-
-<project_brief>
+```markdown
 # Project Brief: [Project Name]
 
 ## Project Overview
@@ -69,14 +74,17 @@ You are an AI integrated into a development environment with access to all files
 
 ## Additional Notes
 [Any other relevant information discovered during the analysis]
-</project_brief>
+```
 
-6. If certain information is not available or cannot be determined from the repository, indicate this in the relevant sections of the brief.
+5. Important guidelines:
+   - If certain information is not available or cannot be determined from the repository, indicate this in the relevant sections of the brief.
+   - Be objective and factual in your assessment. Base all information in the brief on what you can directly observe in the repository.
+   - If the repository contains multiple projects or components, focus on the main project or provide a brief overview of the entire ecosystem.
+   - Ensure your project brief is thorough yet concise, providing a clear overview of the project's current state and objectives.
+   - Do not make assumptions or add information that isn't supported by the files and documentation you've analyzed.
 
-7. Be objective and factual in your assessment. Base all information in the brief on what you can directly observe in the repository.
+6. After creating the project brief, update the file located at memory-bank/projectBrief.md with the new content.
 
-8. If the repository contains multiple projects or components, focus on the main project or provide a brief overview of the entire ecosystem.
+7. Confirm that you have completed the task by stating that you have updated the project brief file.
 
-9. Before finalizing your brief, review it to ensure all critical information about the project has been included and that it provides a clear, comprehensive overview of the project.
-
-Remember, you are creating this brief based solely on the contents of the repository. Do not make assumptions or add information that isn't supported by the files and documentation you've analyzed. If you're unsure about any aspect, it's better to note that the information is unclear or not available rather than to speculate.
+Begin your response with your breakdown of the repository.
