@@ -51,9 +51,8 @@ echo "# Project: $PROJECT_NAME" >> memory-bank/projectbrief.md
 echo "- Cline infrastructure setup completed: $(date)" >> memory-bank/progress.md
 echo "- Basic Cline setup activated" >> memory-bank/activeContext.md
 
-echo "⚡ Activating rules..."
-cd scripts && ./activate-rules.sh
-cd "$PROJECT_DIR"
+echo "Activating rules..."
+./scripts/activate-rules.sh 
 
 echo "Cline infrastructure setup completed successfully!"
 echo ""
