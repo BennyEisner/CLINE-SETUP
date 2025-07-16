@@ -1,18 +1,16 @@
 #!/bin/bash
 # File: scripts/setup-project.sh
-# Purpose: Set up complete Cline infrastructure in the current project
-
-
+# Purpose: Set up complete Cline infrastructure in the current project using local files.
 
 set -e
 
 echo "Setting up Cline infrastructure in current project..."
 
-# Get the directory where this script is located (CLINE-SETUP repo)
+# Get the directory where this script is located to find the root of the Cline-Setup repo.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SETUP_REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
-# Current project directory (where script is being run from)
+# The project directory is the current directory where the script is being run from.
 PROJECT_DIR="$(pwd)"
 
 echo "Creating directory structure..."
@@ -22,26 +20,29 @@ mkdir -p memory-bank
 mkdir -p scripts
 mkdir -p workflows/development
 
-echo "Copying core clinerules files..."
-rsync -a --ignore-existing "$SETUP_REPO_DIR/.clinerules/" .clinerules/
+echo "Copying core .clinerules files..."
+# The '.' after the source path ensures the *contents* of the directory are copied.
+cp -r "$SETUP_REPO_DIR/.clinerules/." .clinerules/
+
 echo "Copying clinerules-bank structure..."
-rsync -a --ignore-existing "$SETUP_REPO_DIR/clinerules-bank/" clinerules-bank/
-echo "Ensuring initializememorybank.md is in the rule bank..."
-rsync -a --ignore-existing "$SETUP_REPO_DIR/.clinerules/initializememorybank.md" clinerules-bank/
-mkdir -p clinerules-bank/environments
+cp -r "$SETUP_REPO_DIR/clinerules-bank/." clinerules-bank/
+
+echo "Ensuring initializememorybank.md is in the rule bank for activation..."
+# This file must be in the bank so that activate-rules.sh can find it.
+cp "$SETUP_REPO_DIR/.clinerules/initializememorybank.md" clinerules-bank/
 
 echo "Copying memory-bank templates..."
-rsync -a --ignore-existing "$SETUP_REPO_DIR/memory-bank/" memory-bank/
+cp -r "$SETUP_REPO_DIR/memory-bank/." memory-bank/
 
 echo "Copying scripts..."
-rsync -a --ignore-existing "$SETUP_REPO_DIR/scripts/" scripts/
+cp -r "$SETUP_REPO_DIR/scripts/." scripts/
 chmod +x scripts/activate-rules.sh
 
 echo "Copying workflows..."
-rsync -a --ignore-existing "$SETUP_REPO_DIR/workflows/" workflows/
+cp -r "$SETUP_REPO_DIR/workflows/." workflows/
 
 echo "Copying project brief prompt..."
-rsync -a --ignore-existing "$SETUP_REPO_DIR/project-brief-prompt.md" "$PROJECT_DIR/"
+cp "$SETUP_REPO_DIR/project-brief-prompt.md" "$PROJECT_DIR/"
 
 echo "Initializing project context..."
 PROJECT_NAME=$(basename "$PROJECT_DIR")
