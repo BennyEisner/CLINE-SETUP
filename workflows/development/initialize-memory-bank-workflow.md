@@ -14,7 +14,11 @@ This workflow guides Cline in populating the project's Memory Bank based on the 
 - **Critical Rule**: DO NOT read or attempt to populate any other memory bank files at this stage.
 
 ### 2. MANDATORY Codebase Analysis
-- **Action**: **Step 2a: File & Directory Mapping.** Perform a comprehensive scan of the project's file structure using `list_files` recursively. Create a mental map of the directory layout, noting common directories like `src`, `app`, `lib`, `docs`, `tests`, etc.
+- **Action**: **Step 2a: Structured Directory Exploration.** Instead of a single recursive file listing, perform a structured exploration:
+    - **1. Top-Level Scan**: Use `list_files` on the root directory (`.`) without recursion to identify top-level files and directories.
+    - **2. Identify Key Directories**: From the top-level scan, identify a list of high-value directories to investigate further. Prioritize common names like `src`, `app`, `lib`, `components`, `pages`, `server`, `config`, `scripts`, `tests`, `docs`.
+    - **3. Deep Dive into Key Directories**: For each identified high-value directory, use `list_files` recursively to get a detailed listing of its contents. This builds a focused understanding of the project's most important areas.
+    - **4. Create Project Map**: Synthesize the findings from the directory deep dives into a mental map of the project's structure.
 - **Action**: **Step 2b: Dependency & Configuration Analysis.** Identify and read all key configuration and dependency files to determine the technology stack, dependencies, and build process. Prioritize files like:
     - `package.json` (for Node.js projects)
     - `requirements.txt`, `pyproject.toml` (for Python projects)
