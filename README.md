@@ -107,6 +107,13 @@ With the `projectbrief.md` in place, you can now instruct Cline to populate the 
     - Populate all other core Memory Bank files (`productContext.md`, `techContext.md`, `systemPatterns.md`, `activeContext.md`, and `progress.md`).
     - Report back with a summary and wait for your approval before starting any development tasks.
 
+### 3. Follow the Git Workflow
+
+All development work should follow the standardized Git workflow to ensure a clean and consistent project history.
+
+-   **Standards**: For the principles behind the branching model and commit conventions, see the [Git Workflow Standards](./clinerules-bank/02-git-workflow-standards.md).
+-   **Step-by-Step Guide**: For a practical guide on creating a feature branch, committing code, and opening a pull request, follow the [Feature Branch Workflow](./workflows/development/feature-branch-workflow.md).
+
 ---
 
 ## Directory Structure
@@ -120,6 +127,7 @@ The setup script creates the following directories and files in your project roo
   - `initializememorybank.md`: Instructions for Cline's memory bank workflow
 - **`clinerules-bank/`**: A library of rule templates and environment-specific configurations.
   - `01-coding-standards-example.md`: Template for coding standards
+  - `02-git-workflow-standards.md`: Defines the branching model and commit message conventions.
   - `environments/`: Directory for language/framework-specific rules
 - **`memory-bank/`**: The core of the system. All project context, progress, and documentation live here.
   - `projectbrief.md`: The foundational document describing the project
@@ -134,6 +142,7 @@ The setup script creates the following directories and files in your project roo
 - **`workflows/`**: Contains detailed step-by-step guides for development processes.
   - `development/setup-project.md`: Guide for setting up the Cline infrastructure
   - `development/initialize-memory-bank-workflow.md`: Workflow for populating the memory bank
+  - `development/feature-branch-workflow.md`: Step-by-step guide for the feature branch development process.
 
 ---
 
