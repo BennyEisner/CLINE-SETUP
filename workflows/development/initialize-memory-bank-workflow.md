@@ -16,18 +16,19 @@ This workflow guides Cline in populating the project's Memory Bank based on the 
 ### 2. MANDATORY Codebase Analysis
 - **Action**: **Step 2a: Structured Directory Exploration.** Instead of a single recursive file listing, perform a structured exploration:
     - **1. Top-Level Scan**: Use `list_files` on the root directory (`.`) without recursion to identify top-level files and directories.
-    - **2. Identify Key Directories**: From the top-level scan, identify a list of high-value directories to investigate further. Prioritize common names like `src`, `app`, `lib`, `components`, `pages`, `server`, `config`, `scripts`, `tests`, `docs`.
+    - **2. Identify Key Directories**: From the top-level scan, identify a list of high-value directories to investigate further. Prioritize common names like `src`, `app`, `lib`, `components`, `pages`, `server`, `config`, `scripts`, `tests`, `docs`, `cmd`, `pkg`, `internal`.
     - **3. Deep Dive into Key Directories**: For each identified high-value directory, use `list_files` recursively to get a detailed listing of its contents. This builds a focused understanding of the project's most important areas.
     - **4. Create Project Map**: Synthesize the findings from the directory deep dives into a mental map of the project's structure.
 - **Action**: **Step 2b: Dependency & Configuration Analysis.** Identify and read all key configuration and dependency files to determine the technology stack, dependencies, and build process. Prioritize files like:
     - `package.json` (for Node.js projects)
     - `requirements.txt`, `pyproject.toml` (for Python projects)
     - `pom.xml`, `build.gradle` (for Java projects)
+    - `go.mod` 
     - `docker-compose.yml`, `Dockerfile` (for containerized services)
     - `.env` files (for environment variables)
     - Any `README.md` files at the root or in subdirectories.
 - **Action**: **Step 2c: Search-Based Code Structure Analysis.** Instead of relying on a high-level parsing tool, use `search_files` with regular expressions to find key definitions directly.
-    - **1. Determine Language**: Based on the files found in Step 2b (e.g., `package.json` implies JS/TS, `requirements.txt` implies Python), select the appropriate regex patterns.
+    - **1. Determine Language**: Based on the files found in Step 2b (e.g., `package.json` implies JS/TS, `requirements.txt` implies Python, `go.mod` implies Go), select the appropriate regex patterns.
     - **2. Execute Searches**: Run `search_files` on the source directories for each relevant pattern.
     - **Example Regex Patterns**:
         - **For JavaScript/TypeScript**:
@@ -37,14 +38,25 @@ This workflow guides Cline in populating the project's Memory Bank based on the 
         - **For Python**:
             - Function Definitions: `def\s+\w+\(.*\):`
             - Class Definitions: `class\s+\w+\(.*\):`
+        - **For Go**:
+            - Function Definitions: `func\s+[A-Za-z0-9_]+`
+            - Struct Definitions: `type\s+[A-Z][A-Za-z0-9_]+\s+struct`
     - **3. Synthesize Results**: Collect the names of all discovered functions, classes, and components. This creates a reliable, text-based map of the codebase.
-- **Action**: **Step 2d: Contextual File Review.** Based on the search results from Step 2c, use `read_file` to examine the files containing the most important-seeming definitions (e.g., `App`, `Main`, `Server`, `Database`). This adds context to the names discovered.
-- **Action**: **Step 2e: Entry Point Identification.** Use `read_file` on common entry point files to understand how the application starts. If the entry point is not obvious, use `search_files` to look for application startup patterns:
-    - `ReactDOM.render` or `createRoot` (for React)
-    - `if __name__ == "__main__"` (for Python)
-    - `app.listen` (for Node.js Express)
-    - `public static void main\(String\[\] args\)` (for Java)
-- **Critical Rule**: This multi-step analysis MUST be completed before proceeding. The goal is to build a concrete understanding of the codebase, not just to follow a checklist.
+- **Action**: **Step 2d: Deep Code Analysis via File Reading.** After identifying key files, you MUST read their contents to understand the core logic. This is not optional.
+    - **1. Read Core Logic Files**: Systematically use `read_file` to analyze the contents of the most critical files. The goal is to understand not just *what* files exist, but *how* they work and what their *current* state is.
+    - **2. Prioritize Key Files for Reading**:
+        - **Application Entry Point(s)**: (e.g., `index.js`, `main.py`, `App.jsx`, `server.js`, `main.go`).
+        - **Core Configuration**: (e.g., `webpack.config.js`, `vite.config.js`, `next.config.js`, `settings.py`).
+        - **Main Router/Navigation**: (e.g., `routes.js`, `urls.py`, files containing Go `http.HandleFunc`).
+        - **Central State Management**: (e.g., Redux stores, Context providers).
+        - **Key Business Logic Modules**: (e.g., `api.js`, `database.js`, files in `services/`, `utils/`, Go packages in `pkg/` or `internal/`).
+    - **3. Use Search to Find Entry Points if Needed**: If the entry point is not obvious from file names, use `search_files` for application startup patterns:
+        - `ReactDOM.render` or `createRoot` (React)
+        - `if __name__ == "__main__"` (Python)
+        - `app.listen` (Node.js Express)
+        - `public static void main\(String\[\] args\)` (Java)
+        - `func\s+main\(\)` (Go)
+- **Critical Rule**: This multi-step analysis, including reading the contents of key files, MUST be completed before proceeding. A superficial file listing is not sufficient.
 
 ### 3. Synthesize Project Understanding
 - **Action**: Create a comprehensive understanding by combining:
