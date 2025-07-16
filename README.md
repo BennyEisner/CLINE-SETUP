@@ -15,23 +15,24 @@ This repository contains a standardized, automated system for setting up and man
 - [Maintaining and Utilizing the Memory Bank](#maintaining-and-utilizing-the-memory-bank)
 - [Troubleshooting](#troubleshooting)
 - [Best Practices](#best-practices)
+
 ---
 
 ## Core Concepts
 
 This setup system is built on a few core components that work together to provide Cline with context and guidance.
 
--   **Memory Bank**: The project's long-term memory. This is a structured set of Markdown files in the `memory-bank/` directory that stores all critical project information—from high-level goals and product context to technical details and architecture. It serves as the single source of truth for the project's state, history, and objectives.
+- **Memory Bank**: The project's long-term memory. This is a structured set of Markdown files in the `memory-bank/` directory that stores all critical project information—from high-level goals and product context to technical details and architecture. It serves as the single source of truth for the project's state, history, and objectives.
 
--   **Cline Rules**: A persistent set of rules and guidelines that Cline must follow. This system focuses on **Workspace Rules**, which are specific to the project you are working on. These rules ensure that Cline's behavior and output align with your project's specific coding standards, architectural patterns, and other requirements.
+- **Cline Rules**: A persistent set of rules and guidelines that Cline must follow. This system focuses on **Workspace Rules**, which are specific to the project you are working on. These rules ensure that Cline's behavior and output align with your project's specific coding standards, architectural patterns, and other requirements.
 
--   **Clinerules Bank**: A repository for all your Cline Rules, located in the `clinerules-bank/` directory. It acts as a library, holding different rule sets for various technologies or environments (e.g., `react`, `python`, `aws`). This makes it easy to manage and reuse rules across different contexts.
+- **Clinerules Bank**: A repository for all your Cline Rules, located in the `clinerules-bank/` directory. It acts as a library, holding different rule sets for various technologies or environments (e.g., `react`, `python`, `aws`). This makes it easy to manage and reuse rules across different contexts.
 
--   **Active Rules (`.clinerules/`)**: The set of rules that are currently *active* for Cline to follow. This directory's content is managed by the activation script, which copies the relevant rules from the `clinerules-bank/` into `.clinerules/`. Cline *only* reads from this directory, ensuring it uses the correct context for the current task.
+- **Active Rules (`.clinerules/`)**: The set of rules that are currently _active_ for Cline to follow. This directory's content is managed by the activation script, which copies the relevant rules from the `clinerules-bank/` into `.clinerules/`. Cline _only_ reads from this directory, ensuring it uses the correct context for the current task.
 
--   **Activation Scripts**: The `scripts/activate-rules.sh` script is a powerful tool that makes it easy to toggle between different sets of Cline Rules. You can use it to activate, list, or clear rule sets, automatically managing the content of the `.clinerules/` directory.
+- **Activation Scripts**: The `scripts/activate-rules.sh` script is a powerful tool that makes it easy to toggle between different sets of Cline Rules. You can use it to activate, list, or clear rule sets, automatically managing the content of the `.clinerules/` directory.
 
--   **Workflow System**: The files within the `workflows/` directory define automated, step-by-step processes for completing common, complex tasks like initializing the project or populating the memory bank. This ensures consistency and reliability in how tasks are executed.
+- **Workflow System**: The files within the `workflows/` directory define automated, step-by-step processes for completing common, complex tasks like initializing the project or populating the memory bank. This ensures consistency and reliability in how tasks are executed.
 
 ---
 
@@ -88,6 +89,7 @@ Once the setup is complete, your project is ready for Cline. The typical workflo
 If you are integrating this system into a project with existing code, the first step is to generate a comprehensive **Project Brief**. This brief will serve as the foundation for the entire Memory Bank.
 
 **How to do it:**
+
 1.  Copy the contents of the `project-brief-prompt.md` file.
 2.  Paste the prompt into your chat with Cline.
 3.  Cline will analyze your repository, generate a detailed project brief, and automatically save it to `memory-bank/projectbrief.md`.
@@ -97,6 +99,7 @@ If you are integrating this system into a project with existing code, the first 
 With the `projectbrief.md` in place, you can now instruct Cline to populate the rest of the Memory Bank.
 
 **How to do it:**
+
 1.  Simply ask Cline: **"Initialize the memory bank according to your workflow."**
 2.  Cline will follow the `initialize-memory-bank-workflow.md` to:
     - Read the `projectbrief.md`.
@@ -112,29 +115,25 @@ The setup script creates the following directories and files in your project roo
 
 ### Core Directories
 
--   **`.clinerules/`**: Contains the active rules and guidelines Cline must follow for this specific project.
-    -   `01-coding-standards-example.md`: An example of basic coding standards and conventions. This can be changed or deleted as it is purley a template.
-    -   `initializememorybank.md`: Instructions for Cline's memory bank workflow
-    
--   **`clinerules-bank/`**: A library of rule templates and environment-specific configurations.
-    -   `01-coding-standards-example.md`: Template for coding standards
-    -   `environments/`: Directory for language/framework-specific rules
-    
--   **`memory-bank/`**: The core of the system. All project context, progress, and documentation live here.
-    -   `projectbrief.md`: The foundational document describing the project
-    -   `productContext.md`: The "why" behind the project - problems solved and user needs
-    -   `techContext.md`: The technologies, tools, and technical constraints
-    -   `systemPatterns.md`: The architecture, design patterns, and component relationships
-    -   `activeContext.md`: The current focus, recent changes, and next steps
-    -   `progress.md`: The overall project status, completed work, and known issues
-    
--   **`scripts/`**: Contains automation scripts for project management.
-    -   `activate-rules.sh`: Script to activate project-specific rules
-    -   `setup-project.sh`: Script to handle the initial setup.
-    
--   **`workflows/`**: Contains detailed step-by-step guides for development processes. 
-    -   `development/setup-project.md`: Guide for setting up the Cline infrastructure
-    -   `development/initialize-memory-bank-workflow.md`: Workflow for populating the memory bank
+- **`.clinerules/`**: Contains the active rules and guidelines Cline must follow for this specific project.
+  - `01-coding-standards-example.md`: An example of basic coding standards and conventions. This can be changed or deleted as it is purley a template.
+  - `initializememorybank.md`: Instructions for Cline's memory bank workflow
+- **`clinerules-bank/`**: A library of rule templates and environment-specific configurations.
+  - `01-coding-standards-example.md`: Template for coding standards
+  - `environments/`: Directory for language/framework-specific rules
+- **`memory-bank/`**: The core of the system. All project context, progress, and documentation live here.
+  - `projectbrief.md`: The foundational document describing the project
+  - `productContext.md`: The "why" behind the project - problems solved and user needs
+  - `techContext.md`: The technologies, tools, and technical constraints
+  - `systemPatterns.md`: The architecture, design patterns, and component relationships
+  - `activeContext.md`: The current focus, recent changes, and next steps
+  - `progress.md`: The overall project status, completed work, and known issues
+- **`scripts/`**: Contains automation scripts for project management.
+  - `activate-rules.sh`: Script to activate project-specific rules
+  - `setup-project.sh`: Script to handle the initial setup.
+- **`workflows/`**: Contains detailed step-by-step guides for development processes.
+  - `development/setup-project.md`: Guide for setting up the Cline infrastructure
+  - `development/initialize-memory-bank-workflow.md`: Workflow for populating the memory bank
 
 ---
 
@@ -143,6 +142,7 @@ The setup script creates the following directories and files in your project roo
 After running the setup script, verify that everything was installed correctly:
 
 ### Check Directory Structure
+
 ```bash
 # Verify all directories were created
 ls -la .clinerules/
@@ -153,6 +153,7 @@ ls -la workflows/
 ```
 
 ### Check File Contents
+
 ```bash
 # Verify key files exist and have content
 cat .clinerules/initializememorybank.md | head -10
@@ -161,6 +162,7 @@ cat workflows/development/initialize-memory-bank-workflow.md | head -10
 ```
 
 ### Test Script Permissions
+
 ```bash
 # Verify scripts are executable
 ls -la scripts/activate-rules.sh
@@ -192,6 +194,7 @@ The `project-brief-prompt.md` file contains a comprehensive prompt designed to h
 ### What the Analysis Includes
 
 The project brief prompt instructs Cline to examine:
+
 - README files and documentation
 - Source code structure and patterns
 - Configuration files (package.json, requirements.txt, etc.)
@@ -243,10 +246,10 @@ The `.clinerules` directory contains the set of active rules that Cline must fol
 
 ### Core Concepts
 
--   **`clinerules-bank/`**: This is your library of all available rule templates. It's where you store general rules and environment-specific rule sets.
-    -   **General Rules**: Files in the root of `clinerules-bank/` are considered "general" and are always activated.
-    -   **Environments**: Files within `clinerules-bank/environments/` are specific to a technology or framework (e.g., `react.md`, `python.md`).
--   **`.clinerules/`**: This directory holds the currently *active* rules. Cline only reads from this directory. The `activate-rules.sh` script manages what goes in here.
+- **`clinerules-bank/`**: This is your library of all available rule templates. It's where you store general rules and environment-specific rule sets.
+  - **General Rules**: Files in the root of `clinerules-bank/` are considered "general" and are always activated.
+  - **Environments**: Files within `clinerules-bank/environments/` are specific to a technology or framework (e.g., `react.md`, `python.md`).
+- **`.clinerules/`**: This directory holds the currently _active_ rules. Cline only reads from this directory. The `activate-rules.sh` script manages what goes in here.
 
 ### Using the `activate-rules.sh` Script
 
@@ -296,26 +299,26 @@ You can easily create new rules or customize existing ones.
 
 Let's say you want to add rules for `tailwind-css`.
 
--   Create a new file in the environments directory:
-    ```bash
-    touch clinerules-bank/environments/tailwind-css.md
-    ```
--   Add your custom rules to this new Markdown file.
--   The `activate-rules.sh` script will automatically discover it. You can now activate it:
-    ```bash
-    ./scripts/activate-rules.sh tailwind-css
-    ```
+- Create a new file in the environments directory:
+  ```bash
+  touch clinerules-bank/environments/tailwind-css.md
+  ```
+- Add your custom rules to this new Markdown file.
+- The `activate-rules.sh` script will automatically discover it. You can now activate it:
+  ```bash
+  ./scripts/activate-rules.sh tailwind-css
+  ```
 
 **2. Customize Existing Rules**
 
 It's best practice to edit the templates in `clinerules-bank/` rather than the active rules in `.clinerules/`, as the active ones will be overwritten.
 
--   Open the rule file you want to change, for example:
-    ```bash
-    nano clinerules-bank/01-coding-standards-example.md
-    ```
--   Make your edits and save the file.
--   Re-run the activation script to apply your changes to the active rules.
+- Open the rule file you want to change, for example:
+  ```bash
+  nano clinerules-bank/01-coding-standards-example.md
+  ```
+- Make your edits and save the file.
+- Re-run the activation script to apply your changes to the active rules.
 
 ---
 
@@ -328,28 +331,28 @@ Once initialized, the Memory Bank becomes a living document. Proper maintenance 
 Think of your work with Cline as a continuous loop. The goal is to keep the Memory Bank synchronized with your project's reality.
 
 1.  **Start of Session: Context Refresh**
-    -   **Action**: Begin every new work session by instructing Cline to get up to speed. Since its memory is not persistent, this step is critical.
-    -   **Prompt**: `"Review the entire memory bank and summarize the current project status, active context, and next steps."`
+    - **Action**: Begin every new work session by instructing Cline to get up to speed. Since its memory is not persistent, this step is critical.
+    - **Prompt**: `"Review the entire memory bank and summarize the current project status, active context, and next steps."`
 
 2.  **During Session: Leverage Custom Instructions**
-    -   **Action**: Before starting a task, ensure the correct workspace rules are active. The `.clinerules` act as powerful, on-the-fly custom instructions that guide Cline's behavior.
-    -   **Example**: If you're working on the frontend, activate the `react` rules: `./scripts/activate-rules.sh react`. This tells Cline to adhere to React-specific coding standards and patterns.
-    -   **Why it matters**: This ensures Cline's output (code, suggestions, etc.) is consistent with your project's specific requirements, saving you time on refactoring.
+    - **Action**: Before starting a task, ensure the correct workspace rules are active. The `.clinerules` act as powerful, on-the-fly custom instructions that guide Cline's behavior.
+    - **Example**: If you're working on the frontend, activate the `react` rules: `./scripts/activate-rules.sh react`. This tells Cline to adhere to React-specific coding standards and patterns.
+    - **Why it matters**: This ensures Cline's output (code, suggestions, etc.) is consistent with your project's specific requirements, saving you time on refactoring.
 
 3.  **End of Session: Capture Progress**
-    -   **Action**: After making significant progress or at the end of a work session, have Cline update the Memory Bank. This captures the latest changes, decisions, and learnings.
-    -   **Prompt (Broad)**: `"Update the memory bank to reflect our work today. We completed the user login form and fixed the session bug."`
-    -   **Prompt (Specific)**: For more control, you can direct updates to specific files:
-        -   `"Update progress.md to show the login form is complete and the session bug is resolved."`
-        -   `"Update activeContext.md to set the next task as building the user profile page."`
-        -   `"A new API utility was created. Please document its pattern in systemPatterns.md."`
+    - **Action**: After making significant progress or at the end of a work session, have Cline update the Memory Bank. This captures the latest changes, decisions, and learnings.
+    - **Prompt (Broad)**: `"Update the memory bank to reflect our work today. We completed the user login form and fixed the session bug."`
+    - **Prompt (Specific)**: For more control, you can direct updates to specific files:
+      - `"Update progress.md to show the login form is complete and the session bug is resolved."`
+      - `"Update activeContext.md to set the next task as building the user profile page."`
+      - `"A new API utility was created. Please document its pattern in systemPatterns.md."`
 
 ### Why This Workflow is Important
 
--   **Prevents Context Drift**: Regular updates ensure Cline's understanding doesn't diverge from the project's reality.
--   **Maximizes Efficiency**: Starting with a context refresh means you don't waste time re-explaining past work.
--   **Enforces Consistency**: Using `.clinerules` ensures that all contributions, whether from you or Cline, adhere to the same standards.
--   **Creates a Living Record**: The Memory Bank evolves into a comprehensive, always-current knowledge base for the project, invaluable for onboarding new team members or for your own future reference.
+- **Prevents Context Drift**: Regular updates ensure Cline's understanding doesn't diverge from the project's reality.
+- **Maximizes Efficiency**: Starting with a context refresh means you don't waste time re-explaining past work.
+- **Enforces Consistency**: Using `.clinerules` ensures that all contributions, whether from you or Cline, adhere to the same standards.
+- **Creates a Living Record**: The Memory Bank evolves into a comprehensive, always-current knowledge base for the project, invaluable for onboarding new team members or for your own future reference.
 
 ### Managing Multiple Projects
 
@@ -364,11 +367,13 @@ Each project must have its own independent copy of this infrastructure. The Memo
 If the setup script encounters errors:
 
 1. **Check permissions**:
+
    ```bash
    chmod +x Cline-Setup/scripts/setup-project.sh
    ```
 
 2. **Run with verbose output**:
+
    ```bash
    bash -x ./Cline-Setup/scripts/setup-project.sh
    ```
@@ -395,6 +400,7 @@ If Cline doesn't properly initialize the memory bank:
 If some files are missing after setup:
 
 1. **Re-run the setup script**:
+
    ```bash
    ./Cline-Setup/scripts/setup-project.sh
    ```
@@ -408,18 +414,21 @@ If some files are missing after setup:
 ## Best Practices
 
 ### For Project Briefs
+
 - Be specific about technical requirements and constraints
 - Include information about target users and use cases
 - Mention any existing code patterns or architectural decisions
 - Specify deployment requirements and environments
 
 ### For Memory Bank Management
+
 - Update the memory bank regularly as the project evolves
 - Keep `activeContext.md` current with your immediate focus
 - Use `progress.md` to track completed milestones and known issues
 - Review and update `systemPatterns.md` when making architectural changes
 
 ### For Working with Cline
+
 - Always start new sessions by asking Cline to read the memory bank
 - Use specific, actionable language when requesting updates
 - Provide feedback on Cline's work to improve future interactions

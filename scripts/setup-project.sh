@@ -23,28 +23,23 @@ mkdir -p scripts
 mkdir -p workflows/development
 
 echo "Copying core clinerules files..."
-cp "$SETUP_REPO_DIR/.clinerules/01-coding-standards-example.md" .clinerules/
-cp "$SETUP_REPO_DIR/.clinerules/initializememorybank.md" .clinerules/
+rsync -a --ignore-existing "$SETUP_REPO_DIR/.clinerules/" .clinerules/
 echo "Copying clinerules-bank structure..."
-cp "$SETUP_REPO_DIR/clinerules-bank/01-coding-standards-example.md" clinerules-bank/
-# Copy environments directory structure (but not specific language files)
+rsync -a --ignore-existing "$SETUP_REPO_DIR/clinerules-bank/" clinerules-bank/
 mkdir -p clinerules-bank/environments
 
 echo "Copying memory-bank templates..."
-cp "$SETUP_REPO_DIR/memory-bank/activeContext.md" memory-bank/
-cp "$SETUP_REPO_DIR/memory-bank/productContext.md" memory-bank/
-cp "$SETUP_REPO_DIR/memory-bank/progress.md" memory-bank/
-cp "$SETUP_REPO_DIR/memory-bank/projectbrief.md" memory-bank/
-cp "$SETUP_REPO_DIR/memory-bank/systemPatterns.md" memory-bank/
-cp "$SETUP_REPO_DIR/memory-bank/techContext.md" memory-bank/
+rsync -a --ignore-existing "$SETUP_REPO_DIR/memory-bank/" memory-bank/
 
 echo "Copying scripts..."
-cp "$SETUP_REPO_DIR/scripts/activate-rules.sh" scripts/
+rsync -a --ignore-existing "$SETUP_REPO_DIR/scripts/" scripts/
 chmod +x scripts/activate-rules.sh
 
 echo "Copying workflows..."
-cp "$SETUP_REPO_DIR/workflows/development/setup-project.md" workflows/development/
-cp "$SETUP_REPO_DIR/workflows/development/initialize-memory-bank-workflow.md" workflows/development/
+rsync -a --ignore-existing "$SETUP_REPO_DIR/workflows/" workflows/
+
+echo "Copying project brief prompt..."
+rsync -a --ignore-existing "$SETUP_REPO_DIR/project-brief-prompt.md" "$PROJECT_DIR/"
 
 echo "Initializing project context..."
 PROJECT_NAME=$(basename "$PROJECT_DIR")
@@ -63,6 +58,7 @@ echo "   - clinerules-bank/ - Rule templates and environments"
 echo "   - memory-bank/ - Project context and memory files"
 echo "   - scripts/ - Cline management scripts"
 echo "   - workflows/ - Development workflows"
+echo "   - project-brief-prompt.md - copy in paste this into cline immediately after running the setup script"
 echo ""
 echo "You can now delete the CLINE-SETUP directory if desired:"
 echo "   rm -rf CLINE-SETUP"

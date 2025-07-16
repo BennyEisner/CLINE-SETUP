@@ -154,8 +154,7 @@ case "$1" in
         exit 0
         ;;
     "")
-        show_usage
-        exit 1
+        # No environment specified, proceed to activate general rules
         ;;
     *)
         # Continue with environment activation
@@ -171,7 +170,7 @@ rm -f .clinerules/*
 
 # Always activate general rules (these apply to everything)
 echo -e "${BLUE}Activating general rules...${NC}"
-local general_rules=$(get_general_rules)
+general_rules=$(get_general_rules)
 if [ -n "$general_rules" ]; then
     while IFS= read -r rule; do
         if [ -f "clinerules-bank/$rule" ]; then
