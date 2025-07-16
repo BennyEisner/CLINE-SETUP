@@ -316,9 +316,6 @@ Let's say you want to add rules for `tailwind-css`.
 It's best practice to edit the templates in `clinerules-bank/` rather than the active rules in `.clinerules/`, as the active ones will be overwritten.
 
 - Open the rule file you want to change, for example:
-  ```bash
-  nano clinerules-bank/01-coding-standards-example.md
-  ```
 - Make your edits and save the file.
 - Re-run the activation script to apply your changes to the active rules.
 
