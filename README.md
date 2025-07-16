@@ -107,13 +107,6 @@ With the `projectbrief.md` in place, you can now instruct Cline to populate the 
     - Populate all other core Memory Bank files (`productContext.md`, `techContext.md`, `systemPatterns.md`, `activeContext.md`, and `progress.md`).
     - Report back with a summary and wait for your approval before starting any development tasks.
 
-### 3. Follow the Git Workflow
-
-All development work should follow the standardized Git workflow to ensure a clean and consistent project history.
-
--   **Standards**: For the principles behind the branching model and commit conventions, see the [Git Workflow Standards](./clinerules-bank/02-git-workflow-standards.md).
--   **Step-by-Step Guide**: For a practical guide on creating a feature branch, committing code, and opening a pull request, follow the [Feature Branch Workflow](./workflows/development/feature-branch-workflow.md).
-
 ---
 
 ## Directory Structure
@@ -127,7 +120,7 @@ The setup script creates the following directories and files in your project roo
   - `initializememorybank.md`: Instructions for Cline's memory bank workflow
 - **`clinerules-bank/`**: A library of rule templates and environment-specific configurations.
   - `01-coding-standards-example.md`: Template for coding standards
-  - `02-git-workflow-standards.md`: Defines the branching model and commit message conventions.
+  - `02-cline-git-operations-rule.md`: Grants Cline the authority to perform Git operations and defines the required standards.
   - `environments/`: Directory for language/framework-specific rules
 - **`memory-bank/`**: The core of the system. All project context, progress, and documentation live here.
   - `projectbrief.md`: The foundational document describing the project
@@ -142,7 +135,7 @@ The setup script creates the following directories and files in your project roo
 - **`workflows/`**: Contains detailed step-by-step guides for development processes.
   - `development/setup-project.md`: Guide for setting up the Cline infrastructure
   - `development/initialize-memory-bank-workflow.md`: Workflow for populating the memory bank
-  - `development/feature-branch-workflow.md`: Step-by-step guide for the feature branch development process.
+  - `development/cline-commit-workflow.md`: An automated workflow for Cline to commit its own changes.
 
 ---
 
@@ -368,6 +361,42 @@ Think of your work with Cline as a continuous loop. The goal is to keep the Memo
 Each project must have its own independent copy of this infrastructure. The Memory Bank and Cline Rules are project-specific and should never be shared between different codebases to avoid context contamination.
 
 ---
+
+## Authorizing Cline for Git Operations
+
+This setup includes a powerful feature that allows Cline to autonomously manage its own work by creating branches, committing, and pushing changes. This is governed by a specific rule and workflow to ensure it acts predictably and safely.
+
+### How It Works
+
+1.  **The Rule**: The `clinerules-bank/02-cline-git-operations-rule.md` grants Cline the authority to perform Git operations and defines the branching and commit message standards it must follow.
+2.  **The Workflow**: The `workflows/development/cline-commit-workflow.md` provides the exact, script-like sequence of commands Cline must follow to execute the Git operations.
+
+### Triggering Cline to Commit
+
+You do not need to manually tell Cline to commit. When it completes a task (like writing a new file or fixing a bug), it will use its own judgment, guided by the rule, to decide when to save its work.
+
+After completing the Git operations, Cline will report back with the name of the new branch and a confirmation that the changes have been pushed.
+
+### Example Interaction
+
+```
+You: "Please create a Python script that reads a CSV and prints the first 5 rows."
+
+Cline: (Creates the script using write_to_file)
+
+Cline: "I have created the script. I will now commit this change."
+
+Cline: (Executes the steps in the cline-commit-workflow.md)
+    - git checkout develop && git pull origin develop
+    - git checkout -b feature/create-csv-reader-script
+    - git add .
+    - git commit -m "feat(scripts): add initial csv reader"
+    - git push -u origin feature/create-csv-reader-script
+
+Cline: "I have pushed the changes to the `feature/create-csv-reader-script` branch."
+```
+
+This system empowers Cline to be a more autonomous agent, saving you the manual effort of versioning its work while maintaining strict adherence to your project's workflows.
 
 ## Troubleshooting
 

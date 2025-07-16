@@ -50,33 +50,6 @@ echo "# Project: $PROJECT_NAME" >> memory-bank/projectbrief.md
 echo "- Cline infrastructure setup completed: $(date)" >> memory-bank/progress.md
 echo "- Basic Cline setup activated" >> memory-bank/activeContext.md
 
-echo "Initializing Git repository..."
-if [ ! -d ".git" ]; then
-  echo "No .git directory found. Initializing new Git repository..."
-  git init
-  git checkout -b main
-  git checkout -b develop
-  
-  echo "Adding Cline files to the first commit..."
-  git add .
-  
-  git config user.name "Cline"
-  git config user.email "cline@example.com"
-
-  git commit -m "chore: initialize project with Cline setup"
-  echo "Git repository initialized and 'develop' branch created."
-else
-  echo ".git directory found. Checking for 'develop' branch..."
-  if ! git rev-parse --verify develop >/dev/null 2>&1; then
-    echo "'develop' branch not found. Creating it..."
-    git checkout -b develop
-    git checkout -
-    echo "'develop' branch created."
-  else
-    echo "'develop' branch already exists."
-  fi
-fi
-
 echo "Activating rules..."
 ./scripts/activate-rules.sh 
 
