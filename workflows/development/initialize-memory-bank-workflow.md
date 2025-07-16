@@ -9,55 +9,70 @@ This workflow guides Cline in populating the project's Memory Bank based on the 
 
 ## Cline's Workflow Steps
 
-### 1. Full Memory Bank Review
-- **Action**: Read `memory-bank/projectbrief.md` thoroughly.
-- **Action**: Scan all other `memory-bank/` files (`productContext.md`, `techContext.md`, etc.) to confirm they are either empty or contain only template content.
+### 1. Read Project Brief
+- **Action**: Read `memory-bank/projectbrief.md` thoroughly to understand the project's stated goals and requirements.
+- **Critical Rule**: DO NOT read or attempt to populate any other memory bank files at this stage.
 
-### 2. Codebase Analysis
+### 2. MANDATORY Codebase Analysis
 - **Action**: Perform a comprehensive scan of the project's file structure using `list_files` recursively to understand the directory layout.
-- **Action**: Identify and analyze key configuration and dependency files (e.g., `package.json`, `requirements.txt`, `pom.xml`, `build.gradle`, `docker-compose.yml`) to determine the technology stack, dependencies, and build process.
-- **Action**: Identify primary source code directories (e.g., `src/`, `app/`, `lib/`).
-- **Action**: Use `list_code_definition_names` on the identified source directories to get a high-level overview of the existing codebase structure, including major classes, functions, and components.
-- **Action**: Synthesize these findings to create a preliminary analysis of the project's current state. This analysis will be used to validate and enrich the information from `projectbrief.md`.
+- **Action**: Identify and analyze key configuration and dependency files (e.g., `package.json`, `requirements.txt`, `pom.xml`, `build.gradle`, `docker-compose.yml`, `Dockerfile`, `.env`, etc.) to determine the technology stack, dependencies, and build process.
+- **Action**: Identify primary source code directories (e.g., `src/`, `app/`, `lib/`, `components/`, `pages/`, etc.).
+- **Action**: Use `list_code_definition_names` on ALL identified source directories to get a comprehensive overview of the existing codebase structure, including major classes, functions, components, and modules.
+- **Action**: Read key files that provide architectural insight (e.g., main entry points, configuration files, README files).
+- **Critical Rule**: This analysis MUST be completed before proceeding to any file generation steps.
 
-### 3. Synthesize `projectbrief.md`
-- **Action**: Analyze the project brief to extract the following key information:
-    - Core project goals and objectives.
-    - The primary problem the project solves.
-    - Key features and functional requirements.
-    - Target users or audience.
-    - Any mentioned technologies, languages, or frameworks.
-    - Any specified constraints or non-functional requirements.
+### 3. Synthesize Project Understanding
+- **Action**: Create a comprehensive understanding by combining:
+    - Project goals and requirements from `projectbrief.md`
+    - Actual technology stack discovered in the codebase
+    - Existing architecture and code patterns found
+    - Current implementation status and functionality
+- **Action**: Identify any discrepancies between the project brief and the actual codebase state.
+- **Critical Rule**: This synthesis forms the foundation for ALL subsequent memory bank file generation.
 
-### 4. Generate `productContext.md`
-- **Action**: Based on the synthesis of the project brief and codebase analysis, populate `productContext.md` with:
-    - A clear statement of the problem this project solves.
-    - A description of the target user and their needs.
-    - The core value proposition and user experience goals.
+### 4. Memory Bank File Generation (Only After Analysis)
+**Critical Rule**: Only proceed with file generation after completing the codebase analysis and synthesis.
 
-### 5. Generate `techContext.md`
-- **Action**: Populate `techContext.md` by:
-    - Listing all technologies, languages, frameworks, and dependencies identified during the codebase analysis.
-    - Cross-reference this with any technologies mentioned in the project brief, noting any discrepancies.
+#### 4a. Generate `techContext.md`
+- **Action**: Populate `techContext.md` with:
+    - Complete list of technologies, languages, frameworks, and dependencies discovered in the codebase
+    - Development setup requirements based on configuration files found
+    - Technical constraints identified from the existing code
+    - Build and deployment processes discovered
 
-### 6. Generate `systemPatterns.md`
-- **Action**: Create an initial, high-level draft in `systemPatterns.md`:
-    - Document the existing system architecture and design patterns discovered during the codebase analysis.
-    - If the project is new, outline a potential architecture based on the project brief and the chosen tech stack.
-    - Identify the main components and their relationships.
-    - This will serve as a starting point for architectural decisions.
+#### 4b. Generate `systemPatterns.md`
+- **Action**: Document in `systemPatterns.md`:
+    - Existing system architecture discovered during codebase analysis
+    - Design patterns currently in use
+    - Component relationships and data flow
+    - Key architectural decisions evident in the code
+    - If project is new, propose architecture based on brief and tech stack
 
-### 7. Generate `activeContext.md`
-- **Action**: Initialize `activeContext.md` to set the immediate focus:
-    - **Current Work**: "Initializing project based on `projectbrief.md`."
-    - **Next Steps**: Define the first logical implementation task derived from the brief (e.g., "Set up the project structure for the authentication feature.").
+#### 4c. Generate `productContext.md`
+- **Action**: Based on project brief and codebase reality, populate `productContext.md` with:
+    - Problem statement (from brief, validated against code)
+    - Target user description
+    - Core value proposition
+    - User experience goals (considering existing UI/UX patterns found)
 
-### 8. Generate `progress.md`
-- **Action**: Populate `progress.md` with the project's starting state:
-    - **What Works**: Document any existing, functional components identified during the codebase analysis. If the project is new, state: "Project initialized. Memory Bank populated."
-    - **What's Left to Build**: List the high-level features from the project brief as pending tasks, taking into account what may already be partially implemented.
-    - **Known Issues**: "None."
+#### 4d. Generate `progress.md`
+- **Action**: Document current project state:
+    - **What Works**: List all functional components, features, and systems discovered during analysis
+    - **What's Left to Build**: Features from project brief not yet implemented
+    - **Current Status**: Overall project maturity and development stage
+    - **Known Issues**: Any problems identified during codebase analysis
 
-### 9. Confirmation and Review
-- **Action**: After populating all files, report back to the user with a summary of the initialized context, including key findings from the codebase analysis.
-- **Action**: Ask for the user's review and approval of the newly populated Memory Bank before proceeding with the first implementation task.
+#### 4e. Generate `activeContext.md`
+- **Action**: Set immediate focus based on analysis:
+    - **Current Work**: "Memory Bank initialized based on codebase analysis and project brief"
+    - **Next Steps**: Define logical next implementation task based on what exists vs. what's needed
+    - **Active Decisions**: Key choices to be made based on analysis findings
+    - **Important Patterns**: Critical patterns discovered that should guide future work
+
+### 5. Final Review and Confirmation
+- **Action**: Present a comprehensive summary including:
+    - Key findings from codebase analysis
+    - Technology stack discovered vs. project brief expectations
+    - Current implementation status
+    - Recommended next steps
+- **Action**: Confirm Memory Bank accuracy with user before proceeding with development tasks
