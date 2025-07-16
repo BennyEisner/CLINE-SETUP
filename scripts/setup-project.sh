@@ -26,6 +26,8 @@ echo "Copying core clinerules files..."
 rsync -a --ignore-existing "$SETUP_REPO_DIR/.clinerules/" .clinerules/
 echo "Copying clinerules-bank structure..."
 rsync -a --ignore-existing "$SETUP_REPO_DIR/clinerules-bank/" clinerules-bank/
+echo "Ensuring initializememorybank.md is in the rule bank..."
+rsync -a --ignore-existing "$SETUP_REPO_DIR/.clinerules/initializememorybank.md" clinerules-bank/
 mkdir -p clinerules-bank/environments
 
 echo "Copying memory-bank templates..."
