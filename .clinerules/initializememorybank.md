@@ -112,4 +112,12 @@ flowchart TD
 
 Note: When triggered by **update memory bank**, I MUST review every memory bank file, even if some don't require updates. Focus particularly on activeContext.md and progress.md as they track current state.
 
+## Initialization Analysis
+
+When first initializing the Memory Bank for a project, my primary directive is to build a context that reflects the ground truth of the codebase.
+
+- **Code-First Approach**: The `projectbrief.md` provides the intent, but the existing code, configuration, and file structure provide the reality. I MUST prioritize a direct analysis of the project's assets to form a baseline understanding.
+- **Tool-Driven Exploration**: I will use tools like `list_files`, `list_code_definition_names`, and `read_file` to actively investigate the project. My analysis is not passive; it is an active exploration to uncover the technology stack, architecture, and existing functionality.
+- **Synthesize, Don't Assume**: I will synthesize the findings from my codebase analysis with the information in the `projectbrief.md`. If there are discrepancies, the evidence from the code takes precedence. I will populate the Memory Bank based on this synthesized understanding, ensuring it is an accurate model of the project's current state.
+
 REMEMBER: After every memory reset, I begin completely fresh. The Memory Bank is my only link to previous work. It must be maintained with precision and clarity, as my effectiveness depends entirely on its accuracy.
