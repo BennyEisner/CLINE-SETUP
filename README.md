@@ -62,8 +62,13 @@ Once set up, your interaction with Cline follows a simple, powerful loop.
 1.  **Generate the Project Brief**: If you have an existing codebase, the first step is to create a foundational document for the Memory Bank.
     - **How**: Copy the content from `project-brief-prompt.md`, paste it into the chat with Cline, and it will analyze your repository and create `memory-bank/projectbrief.md`.
 
-2.  **Initialize the Memory Bank**: With the brief created, tell Cline to build its full context.
-    - **How**: Simply ask Cline: \*\*"Initialize the memory bank EXACTLY how you are instructed to do in /workflows/development/initialize-memory-bank.md"
+2.  **Initialize the Memory Bank (Two-Step Process)**: With the brief created, the memory bank is populated in two distinct phases to ensure accuracy.
+
+    -   **Step 2a: Analyze the Codebase**: First, instruct Cline to perform a deep analysis of the code and create a temporary "scratchpad" file with its findings.
+        -   **How**: Ask Cline: **"Run the `analyze-codebase-workflow.md` to analyze the project and create the analysis scratchpad."**
+
+    -   **Step 2b: Populate the Memory Bank**: Once the analysis is complete and the scratchpad is created, instruct Cline to use it to generate the final Memory Bank files.
+        -   **How**: Ask Cline: **"Now, run the `populate-memory-bank-workflow.md` to generate the memory bank files from the scratchpad."**
 3.  **Use Prompt Templates for Guided Tasks**: To perform a specific, structured task, use a template from the `prompt-templates/` directory.
     - **How**: Copy the content of a template (e.g., `prompt-templates/refactor-component.md`), fill in the bracketed placeholders (`[Specify Component Name]`), and paste it into the chat. Cline will execute the task according to the structured instructions.
 
@@ -121,7 +126,8 @@ This ensures all new rules are well-documented, consistent, and easy to integrat
 
 The `workflows/` directory contains detailed, automated processes that guide Cline through complex tasks with precision.
 
-- `initialize-memory-bank-workflow.md`: A step-by-step guide for populating the entire Memory Bank from the project brief.
+- `analyze-codebase-workflow.md`: A workflow to perform a deep analysis of the codebase and generate a detailed `analysis_scratchpad.md` file.
+- `populate-memory-bank-workflow.md`: A workflow that takes the `analysis_scratchpad.md` as input and generates the six core Memory Bank files.
 - `cline-commit-workflow.md`: An automated workflow for Cline to commit its own changes to a new branch.
 
 ### 4. Prompt Templates

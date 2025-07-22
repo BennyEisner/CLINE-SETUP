@@ -128,14 +128,14 @@ case "$1" in
         echo -e "${BLUE}Available rules in bank:${NC}"
         echo ""
         
-        local general_rules=$(get_general_rules)
+        general_rules=$(get_general_rules)
         if [ -n "$general_rules" ]; then
             echo -e "${YELLOW}General rules (always activated):${NC}"
             echo "$general_rules" | sed 's/^/  /'
             echo ""
         fi
         
-        local available_envs=$(get_available_environments)
+        available_envs=$(get_available_environments)
         if [ -n "$available_envs" ]; then
             echo -e "${YELLOW}Available environments:${NC}"
             echo "$available_envs" | sed 's/^/  /'
