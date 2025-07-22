@@ -106,6 +106,17 @@ This system allows you to define and activate specific sets of rules for Cline t
 - **To activate rules**: `./scripts/activate-rules.sh react`
 - **To clear rules**: `./scripts/activate-rules.sh clear`
 
+#### How to Add a New Rule
+
+Adding a new rule to the project is a straightforward process designed to be guided by Cline.
+
+1.  **Use the Template**: Copy the content from `prompt-templates/create-new-clinerule.md`.
+2.  **Define the Rule**: Paste the content into the chat with Cline. It will ask for the key details of the new rule, such as its name, goal, and examples.
+3.  **Creation**: Cline will create the new rule file in the `clinerules-bank/` directory.
+4.  **Activation**: Once created, you can activate it using the `activate-rules.sh` script.
+
+This ensures all new rules are well-documented, consistent, and easy to integrate into the project's standards.
+
 ### 3. Workflows
 
 The `workflows/` directory contains detailed, automated processes that guide Cline through complex tasks with precision.
