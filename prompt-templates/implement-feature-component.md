@@ -6,6 +6,18 @@
 
 ---
 
+### **0. Ensure You Are on a Feature Branch**
+
+Before writing any code, you MUST ensure you are on the correct feature branch.
+
+1.  **Follow the `intelligent-commit-workflow.md`**:
+    -   Run `git branch --show-current` to check your current branch.
+    -   If you are on `main`, `master`, or `develop`, STOP and ask the user to provide the correct feature branch to check out.
+    -   If you are on the correct feature branch for this component, you may continue.
+2.  **Report the Branch**: State the name of the branch you are working on.
+
+---
+
 ### **1. Implementation Task**
 
 Your task is to implement the `[Specify Component Name]` component.

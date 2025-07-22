@@ -6,6 +6,18 @@
 
 ---
 
+### **0. Ensure You Are on a Feature Branch**
+
+Before writing any code, you MUST ensure you are on a dedicated feature branch.
+
+1.  **Follow the `intelligent-commit-workflow.md`**:
+    -   Run `git branch --show-current` to check your current branch.
+    -   If you are on `main`, `master`, or `develop`, create a new feature branch (e.g., `feature/scaffold-[Feature-Name]`).
+    -   If you are already on a feature branch, you may continue.
+2.  **Report the Branch**: State the name of the branch you are working on.
+
+---
+
 ### **1. Feature Scaffolding Plan**
 
 Your first task is to create a plan for the new feature's structure.
