@@ -173,6 +173,16 @@ This setup includes a workflow that allows Cline to autonomously manage its own 
 
 ---
 
+## Testing the Git Workflow
+
+To ensure that Cline's Git operations are configured correctly, you can perform a simple test:
+
+1.  **Ask Cline to make a small, safe change**: For example, ask it to add a test section to this `README.md` file.
+2.  **Prompt a commit**: After the change is made, ask Cline: **"Now, please save this change by following the commit workflow."**
+3.  **Verify the result**: Cline should create a new branch (e.g., `cline/update-readme-for-test`), commit the change, and report the branch name back to you. You can then verify the new branch and the commit in your Git history.
+
+---
+
 ## Troubleshooting
 
 If the setup script fails, check its permissions (`chmod +x Cline-Setup/scripts/setup-project.sh`) and run it again. If issues persist, you can manually create the directories and copy the files from the cloned repository.
