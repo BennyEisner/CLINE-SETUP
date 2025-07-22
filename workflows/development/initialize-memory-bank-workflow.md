@@ -112,7 +112,12 @@ This workflow provides a **strict, evidence-based, and repeatable process** for 
     - **Current Work**: "Memory Bank initialized via evidence-based workflow."
     - **Next Steps**: Propose the most logical next step based on the "What's Left to Build" section of `progress.md`.
 
-### Step 4: Finalization
+### Step 4: Present Findings
+- **Action**: Present a summary of the findings from the "Discrepancy Report" and the recommended next steps to the user for confirmation.
 
-- **Action**: Delete the `memory-bank/analysis_scratchpad.md` file.
-- **Action**: Present a summary of the findings and the recommended next steps to the user for confirmation.
+### Step 5: Final Verification & Cleanup
+**CRITICAL RULE**: Do not proceed until the user has approved the findings from Step 4.
+
+- **Action**: **Verify File Creation.** Use the `ls -l memory-bank/` command to list all files in the memory bank.
+- **Action**: **Confirm All 6 Core Files Exist.** Verbally confirm that `projectbrief.md`, `productContext.md`, `techContext.md`, `systemPatterns.md`, `progress.md`, and `activeContext.md` are all present in the output.
+- **Action**: **Cleanup.** Only after confirming the existence of all six files, delete the `memory-bank/analysis_scratchpad.md` file.
