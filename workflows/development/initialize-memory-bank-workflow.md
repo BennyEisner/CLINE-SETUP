@@ -1,115 +1,118 @@
-# Initialize Memory Bank Workflow
+# Evidence-Based Memory Bank Initialization Workflow
 
-## Purpose
-This workflow guides Cline in populating the project's Memory Bank based on the `projectbrief.md`. It ensures that Cline is fully contextualized and aligned with the project's specific goals, requirements, and technical landscape from the very beginning.
+## 1. Purpose
+This workflow provides a **strict, evidence-based, and repeatable process** for initializing the Memory Bank. Its primary goal is to eliminate variability and ensure the Memory Bank is a **verifiable reflection of the codebase's ground truth**. The core principle is **"code first."**
 
-## Prerequisites
-1.  **Cline Infrastructure Setup**: The `setup-project.md` workflow must be completed, meaning the `memory-bank/`, `.clinerules/`, and other directories are in place.
-2.  **Detailed Project Brief**: The `memory-bank/projectbrief.md` file must be populated with a clear and comprehensive description of the project.
+## 2. Prerequisites
+- The `memory-bank/` directory exists.
+- A `memory-bank/projectbrief.md` file exists, containing the high-level project goals.
 
-## Cline's Workflow Steps
+## 3. Workflow Steps
 
-### 1. Read Project Brief
-- **Action**: Read `memory-bank/projectbrief.md` thoroughly to understand the project's stated goals and requirements.
-- **Critical Rule**: DO NOT read or attempt to populate any other memory bank files at this stage.
+### Step 1: Code-First Analysis & Evidence Gathering
 
-### 2. MANDATORY Codebase Analysis
-- **Action**: **Step 2a: Structured Directory Exploration.** Instead of a single recursive file listing, perform a structured exploration:
-    - **1. Top-Level Scan**: Use `list_files` on the root directory (`.`) without recursion to identify top-level files and directories.
-    - **2. Identify Key Directories**: From the top-level scan, identify a list of high-value directories to investigate further. Prioritize common names like `src`, `app`, `lib`, `components`, `pages`, `server`, `config`, `scripts`, `tests`, `docs`, `cmd`, `pkg`, `internal`.
-    - **3. Deep Dive into Key Directories**: For each identified high-value directory, use `list_files` recursively to get a detailed listing of its contents. This builds a focused understanding of the project's most important areas.
-    - **4. Create Project Map**: Synthesize the findings from the directory deep dives into a mental map of the project's structure.
-- **Action**: **Step 2b: Dependency & Configuration Analysis.** Identify and read all key configuration and dependency files to determine the technology stack, dependencies, and build process. Prioritize files like:
-    - `package.json` (for Node.js projects)
-    - `requirements.txt`, `pyproject.toml` (for Python projects)
-    - `pom.xml`, `build.gradle` (for Java projects)
-    - `go.mod` 
-    - `docker-compose.yml`, `Dockerfile` (for containerized services)
-    - `.env` files (for environment variables)
-    - Any `README.md` files at the root or in subdirectories.
-- **Action**: **Step 2c: Search-Based Code Structure Analysis.** Instead of relying on a high-level parsing tool, use `search_files` with regular expressions to find key definitions directly.
-    - **1. Determine Language**: Based on the files found in Step 2b (e.g., `package.json` implies JS/TS, `requirements.txt` implies Python, `go.mod` implies Go), select the appropriate regex patterns.
-    - **2. Execute Searches**: Run `search_files` on the source directories for each relevant pattern.
-    - **Example Regex Patterns**:
-        - **For JavaScript/TypeScript**:
-            - Function Declarations: `function\s+[A-Za-z0-9_]+`
-            - Arrow Function Components/Variables: `const\s+[A-Z][A-Za-z0-9_]+\s*=\s*\(`
-            - Class Definitions: `class\s+[A-Z][A-Za-z0-9_]+`
-        - **For Python**:
-            - Function Definitions: `def\s+\w+\(.*\):`
-            - Class Definitions: `class\s+\w+\(.*\):`
-        - **For Go**:
-            - Function Definitions: `func\s+[A-Za-z0-9_]+`
-            - Struct Definitions: `type\s+[A-Z][A-Za-z0-9_]+\s+struct`
-    - **3. Synthesize Results**: Collect the names of all discovered functions, classes, and components. This creates a reliable, text-based map of the codebase.
-- **Action**: **Step 2d: Deep Code Analysis via File Reading.** After identifying key files, you MUST read their contents to understand the core logic. This is not optional.
-    - **1. Read Core Logic Files**: Systematically use `read_file` to analyze the contents of the most critical files. The goal is to understand not just *what* files exist, but *how* they work and what their *current* state is.
-    - **2. Prioritize Key Files for Reading**:
-        - **Application Entry Point(s)**: (e.g., `index.js`, `main.py`, `App.jsx`, `server.js`, `main.go`).
-        - **Core Configuration**: (e.g., `webpack.config.js`, `vite.config.js`, `next.config.js`, `settings.py`).
-        - **Main Router/Navigation**: (e.g., `routes.js`, `urls.py`, files containing Go `http.HandleFunc`).
-        - **Central State Management**: (e.g., Redux stores, Context providers).
-        - **Key Business Logic Modules**: (e.g., `api.js`, `database.js`, files in `services/`, `utils/`, Go packages in `pkg/` or `internal/`).
-    - **3. Use Search to Find Entry Points if Needed**: If the entry point is not obvious from file names, use `search_files` for application startup patterns:
-        - `ReactDOM.render` or `createRoot` (React)
-        - `if __name__ == "__main__"` (Python)
-        - `app.listen` (Node.js Express)
-        - `public static void main\(String\[\] args\)` (Java)
-        - `func\s+main\(\)` (Go)
-- **Critical Rule**: This multi-step analysis, including reading the contents of key files, MUST be completed before proceeding. A superficial file listing is not sufficient.
+**Objective**: To systematically explore the codebase and document raw findings without interpretation. All findings from this step **MUST** be recorded in a temporary file: `memory-bank/analysis_scratchpad.md`.
 
-### 3. Synthesize Project Understanding
-- **Action**: Create a comprehensive understanding by combining:
-    - Project goals and requirements from `projectbrief.md`
-    - Actual technology stack discovered in the codebase
-    - Existing architecture and code patterns found
-    - Current implementation status and functionality
-- **Action**: Identify any discrepancies between the project brief and the actual codebase state.
-- **Critical Rule**: This synthesis forms the foundation for ALL subsequent memory bank file generation.
+**Action**: Create the `memory-bank/analysis_scratchpad.md` file. You will populate it in the following sub-steps.
 
-### 4. Memory Bank File Generation (Only After Analysis)
-**Critical Rule**: Only proceed with file generation after completing the codebase analysis and synthesis.
+#### 1a. File & Directory Mapping
+- **Tool**: `list_files`
+- **Action**:
+    1.  Perform a non-recursive `list_files` on the root directory to identify top-level structure.
+    2.  Identify key source directories (e.g., `src`, `app`, `lib`, `pkg`, `cmd`, `server`).
+    3.  Perform a recursive `list_files` on each key source directory.
+- **Scratchpad Output**: Add a "File & Directory Map" section to the scratchpad with the complete file listings.
 
-#### 4a. Generate `techContext.md`
-- **Action**: Populate `techContext.md` with:
-    - Complete list of technologies, languages, frameworks, and dependencies discovered in the codebase
-    - Development setup requirements based on configuration files found
-    - Technical constraints identified from the existing code
-    - Build and deployment processes discovered
+#### 1b. Dependency Analysis
+- **Tool**: `read_file`
+- **Action**:
+    1.  Identify and read the contents of all dependency management files. This is how you determine the project's technology stack.
+    2.  Extract the precise list of all dependencies, dev dependencies, and required versions.
+- **Examples of Files to Look For**:
+    - **Node.js**: `package.json`
+    - **Python**: `requirements.txt`, `pyproject.toml`
+    - **Go**: `go.mod`
+    - **Java**: `pom.xml` (Maven), `build.gradle` (Gradle)
+    - **Ruby**: `Gemfile`
+    - **PHP**: `composer.json`
+    - **Rust**: `Cargo.toml`
+    - **Containerization**: `Dockerfile`, `docker-compose.yml`
+- **Scratchpad Output**: Add a "Dependencies" section to the scratchpad and list every dependency found.
 
-#### 4b. Generate `systemPatterns.md`
-- **Action**: Document in `systemPatterns.md`:
-    - Existing system architecture discovered during codebase analysis
-    - Design patterns currently in use
-    - Component relationships and data flow
-    - Key architectural decisions evident in the code
-    - If project is new, propose architecture based on brief and tech stack
+#### 1c. Code Definition Extraction
+- **Tool**: `list_code_definition_names`
+- **Action**:
+    1.  Run `list_code_definition_names` on the key source directories identified in step 1a.
+    2.  Collect all function names, class names, struct names, and other primary definitions.
+- **Scratchpad Output**: Add a "Code Definitions" section to the scratchpad and list all definitions discovered.
 
-#### 4c. Generate `productContext.md`
-- **Action**: Based on project brief and codebase reality, populate `productContext.md` with:
-    - Problem statement (from brief, validated against code)
-    - Target user description
-    - Core value proposition
-    - User experience goals (considering existing UI/UX patterns found)
+#### 1d. Entry Point & Core Logic Identification
+- **Tool**: `search_files` and `read_file`
+- **Action**:
+    1.  **Identify Entry Points**: Based on the tech stack discovered in step 1b, use `search_files` to locate application entry points.
+    2.  **Identify Core Logic**: Read the entry point file(s) and follow the import/require statements to discover and read 2-3 other critical files.
+- **How to Find Critical Files (Language-Specific Guide)**:
+    - **For a React Frontend**:
+        - **Entry Point**: Search for `ReactDOM.render` or `createRoot`. This will likely be in `index.js` or `main.jsx`.
+        - **Core Logic**: Look for the root component (e.g., `<App />`), main router setup (e.g., `react-router-dom`), and state management configuration (e.g., Redux `store.js` or a main `Context.js` file).
+    - **For a Node.js Backend (Express)**:
+        - **Entry Point**: Search for `app.listen`. This is typically in `server.js`, `index.js`, or `app.js`.
+        - **Core Logic**: Look for where routes are defined (e.g., `app.use('/api', router)`), database connection logic (e.g., `mongoose.connect`), and primary middleware.
+    - **For a Python Application (Flask/Django)**:
+        - **Entry Point**: Search for `app.run()` (Flask) or find `manage.py` and `settings.py` (Django).
+        - **Core Logic**: Look for `urls.py` or files with `@app.route` decorators (Flask) to understand routing. Find models in `models.py` and business logic in `views.py` or service modules.
+    - **For a Go Application**:
+        - **Entry Point**: Search for `func main()`. This is often in `main.go` or a file inside a `cmd/` directory.
+        - **Core Logic**: Look for `http.HandleFunc` or a router library (e.g., `gorilla/mux`, `chi`) to understand request handling. Identify key packages in `pkg/` or `internal/` that contain the core business logic.
+- **Scratchpad Output**: Add a "Core Logic Notes" section to the scratchpad with summaries of the critical files you read, explaining how they connect.
 
-#### 4d. Generate `progress.md`
-- **Action**: Document current project state:
-    - **What Works**: List all functional components, features, and systems discovered during analysis
-    - **What's Left to Build**: Features from project brief not yet implemented
-    - **Current Status**: Overall project maturity and development stage
-    - **Known Issues**: Any problems identified during codebase analysis
+**CRITICAL RULE**: You are **NOT PERMITTED** to proceed to Step 2 until the `analysis_scratchpad.md` is fully populated with the raw data from these four sub-steps.
 
-#### 4e. Generate `activeContext.md`
-- **Action**: Set immediate focus based on analysis:
-    - **Current Work**: "Memory Bank initialized based on codebase analysis and project brief"
-    - **Next Steps**: Define logical next implementation task based on what exists vs. what's needed
-    - **Active Decisions**: Key choices to be made based on analysis findings
-    - **Important Patterns**: Critical patterns discovered that should guide future work
+### Step 2: Structured Synthesis & Discrepancy Analysis
 
-### 5. Final Review and Confirmation
-- **Action**: Present a comprehensive summary including:
-    - Key findings from codebase analysis
-    - Technology stack discovered vs. project brief expectations
-    - Current implementation status
-    - Recommended next steps
-- **Action**: Confirm Memory Bank accuracy with user before proceeding with development tasks
+**Objective**: To compare the evidence from the scratchpad against the goals of the `projectbrief.md`.
+
+#### 2a. Read the Project Brief
+- **Tool**: `read_file`
+- **Action**: Now, and only now, read the `memory-bank/projectbrief.md`.
+
+#### 2b. Compare and Document Discrepancies
+- **Action**: Compare the goals in the brief with the evidence in the scratchpad.
+- **Scratchpad Output**: Add a "Discrepancy Report" section to the scratchpad. For any goal mentioned in the brief, note whether corresponding code/dependencies exist.
+    - **Example**: "Brief mentions a 'user authentication' feature. Scratchpad shows `bcrypt` and `jsonwebtoken` dependencies and a `UserController.js` file, confirming work has started. No UI components for login were found."
+    - **Example**: "Brief mentions 'data visualization'. No charting libraries or related components were found in the scratchpad. This feature has not been started."
+
+### Step 3: Generate Memory Bank Files from Evidence
+
+**Objective**: To populate the final Memory Bank files by **directly transferring and structuring the information** from the `analysis_scratchpad.md`.
+
+**CRITICAL RULE**: The content for each file **MUST** be derived from the scratchpad. Do not invent or infer information.
+
+#### 3a. Generate `techContext.md`
+- **Source**: "Dependencies" and "File & Directory Map" sections of the scratchpad.
+- **Action**: Create `techContext.md`. The "Technologies" and "Dependencies" sections of this file must be a clean, formatted version of the data from the scratchpad.
+
+#### 3b. Generate `systemPatterns.md`
+- **Source**: "Code Definitions" and "Core Logic Notes" sections of the scratchpad.
+- **Action**: Create `systemPatterns.md`. Document the architecture based on the actual classes, functions, and file structures listed in the scratchpad.
+
+#### 3c. Generate `productContext.md`
+- **Source**: `projectbrief.md` and "Discrepancy Report" from the scratchpad.
+- **Action**: Create `productContext.md`. Describe the product goals from the brief, but add notes on the current implementation status based on the discrepancy report.
+
+#### 3d. Generate `progress.md`
+- **Source**: "Discrepancy Report" from the scratchpad.
+- **Action**: Create `progress.md`.
+    - "What Works" must list features confirmed by evidence in the scratchpad.
+    - "What's Left to Build" must list features from the brief that have no corresponding evidence in the scratchpad.
+
+#### 3e. Generate `activeContext.md`
+- **Source**: All sections of the scratchpad.
+- **Action**: Create `activeContext.md`.
+    - **Current Work**: "Memory Bank initialized via evidence-based workflow."
+    - **Next Steps**: Propose the most logical next step based on the "What's Left to Build" section of `progress.md`.
+
+### Step 4: Finalization
+
+- **Action**: Delete the `memory-bank/analysis_scratchpad.md` file.
+- **Action**: Present a summary of the findings and the recommended next steps to the user for confirmation.
