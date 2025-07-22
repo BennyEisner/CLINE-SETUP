@@ -53,6 +53,21 @@ git clone https://github.com/BennyEisner/Cline-Setup.git && ./Cline-Setup/script
 
 Your project is now equipped with the entire Cline context management system.
 
+### Step 3: Initialize the Memory Bank
+
+After the initial setup, you must populate the Memory Bank. This is a critical three-step process.
+
+1.  **Generate the Project Brief**:
+    -   **How**: Copy the content from `project-brief-prompt.md`, paste it into the chat with Cline, and it will analyze your repository and create `memory-bank/projectbrief.md`.
+
+2.  **Analyze the Codebase**:
+    -   **How**: Ask Cline: **"Run the `analyze-codebase-workflow.md` to analyze the project and create the analysis scratchpad."**
+
+3.  **Populate the Memory Bank**:
+    -   **How**: Ask Cline: **"Now, run the `populate-memory-bank-workflow.md` to generate the memory bank files from the scratchpad."**
+
+With the Memory Bank initialized, Cline now has a deep, persistent understanding of your project.
+
 ---
 
 ## The Development Workflow
