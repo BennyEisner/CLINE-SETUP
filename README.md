@@ -1,3 +1,5 @@
+# Cline Setup Repositor
+
 # Cline Setup Repository
 
 This repository provides a standardized, automated system for setting up and managing project context using the **Cline Memory Bank**. It is designed to be cloned into an existing project to instantly deploy a comprehensive documentation, workflow, and context management framework.
@@ -44,8 +46,7 @@ cd /path/to/your/existing-project
 
 ### Step 2: Clone and Run the Setup Script
 
-1. Navigate
-   This one-liner command clones the setup repository, runs the installation script, and then cleans up the cloned directory.
+This one-liner command clones the setup repository, runs the installation script, and then cleans up the cloned directory.
 
 ```bash
 git clone https://github.com/BennyEisner/Cline-Setup.git && ./Cline-Setup/scripts/setup-project.sh && rm -rf Cline-Setup
@@ -58,13 +59,13 @@ Your project is now equipped with the entire Cline context management system.
 After the initial setup, you must populate the Memory Bank. This is a critical three-step process.
 
 1.  **Generate the Project Brief**:
-    -   **How**: Copy the content from `project-brief-prompt.md`, paste it into the chat with Cline, and it will analyze your repository and create `memory-bank/projectbrief.md`.
+    - **How**: Copy the content from `project-brief-prompt.md`, paste it into the chat with Cline, and it will analyze your repository and create `memory-bank/projectbrief.md`.
 
 2.  **Analyze the Codebase**:
-    -   **How**: Ask Cline: **"Run the `analyze-codebase-workflow.md` to analyze the project and create the analysis scratchpad."**
+    - **How**: Ask Cline: **"Run the `analyze-codebase-workflow.md` to analyze the project and create the analysis scratchpad."**
 
 3.  **Populate the Memory Bank**:
-    -   **How**: Ask Cline: **"Now, run the `populate-memory-bank-workflow.md` to generate the memory bank files from the scratchpad."**
+    - **How**: Ask Cline: **"Now, run the `populate-memory-bank-workflow.md` to generate the memory bank files from the scratchpad."**
 
 With the Memory Bank initialized, Cline now has a deep, persistent understanding of your project.
 
@@ -78,12 +79,12 @@ Once set up, your interaction with Cline follows a simple, powerful loop.
     - **How**: Copy the content from `project-brief-prompt.md`, paste it into the chat with Cline, and it will analyze your repository and create `memory-bank/projectbrief.md`.
 
 2.  **Initialize the Memory Bank (Two-Step Process)**: With the brief created, the memory bank is populated in two distinct phases to ensure accuracy.
+    - **Step 2a: Analyze the Codebase**: First, instruct Cline to perform a deep analysis of the code and create a temporary "scratchpad" file with its findings.
+      - **How**: Ask Cline: **"Run the `analyze-codebase-workflow.md` to analyze the project and create the analysis scratchpad."**
 
-    -   **Step 2a: Analyze the Codebase**: First, instruct Cline to perform a deep analysis of the code and create a temporary "scratchpad" file with its findings.
-        -   **How**: Ask Cline: **"Run the `analyze-codebase-workflow.md` to analyze the project and create the analysis scratchpad."**
+    - **Step 2b: Populate the Memory Bank**: Once the analysis is complete and the scratchpad is created, instruct Cline to use it to generate the final Memory Bank files.
+      - **How**: Ask Cline: **"Now, run the `populate-memory-bank-workflow.md` to generate the memory bank files from the scratchpad."**
 
-    -   **Step 2b: Populate the Memory Bank**: Once the analysis is complete and the scratchpad is created, instruct Cline to use it to generate the final Memory Bank files.
-        -   **How**: Ask Cline: **"Now, run the `populate-memory-bank-workflow.md` to generate the memory bank files from the scratchpad."**
 3.  **Use Prompt Templates for Guided Tasks**: To perform a specific, structured task, use a template from the `prompt-templates/` directory.
     - **How**: Copy the content of a template (e.g., `prompt-templates/refactor-component.md`), fill in the bracketed placeholders (`[Specify Component Name]`), and paste it into the chat. Cline will execute the task according to the structured instructions.
 
