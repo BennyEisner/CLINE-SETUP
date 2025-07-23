@@ -1,53 +1,59 @@
-# Workflow: Intelligent Git Commit
+# Workflow: End-to-End Git Workflow
 
 ## 1. Purpose
-This workflow provides an **intelligent, context-aware process** for committing work to the repository. It is designed to follow standard Git best practices by either creating a new feature branch or committing to an existing one, depending on the current context.
+This workflow provides an **intelligent, end-to-end process** for getting changes from a local machine into the main branch of the remote repository. It covers local commits, pushing branches, and initiating the pull request process.
 
 ## 2. Guiding Principles
 - **Protect Primary Branches**: Never commit directly to `main`, `master`, or `develop`.
-- **Work on Feature Branches**: All new work should be done on a descriptively named feature branch.
-- **Commit Incrementally**: Add logical, incremental commits to an existing feature branch if the work is related.
+- **Feature Branch Model**: All work is done on a feature branch, which is then merged via a pull request.
+- **Clear Handoff**: The workflow ends with a clear instruction for the user to complete the final step (pull request creation).
 
 ## 3. Workflow Steps
 
 ### Step 1: Identify Changes
-- **Action**: Before starting the commit process, identify the files that have been created or modified.
+- **Action**: Identify the files that have been created or modified.
 
 ### Step 2: Analyze the Current Branch
-**Goal**: To determine if a new branch is needed.
-
-1.  **Tool**: `execute_command`
-    - **Action**: Run the command `git branch --show-current` to get the name of the currently active branch.
-2.  **Decision Gate**:
-    - **Analyze the output**:
-        - **IF** the current branch is `main`, `master`, or `develop`:
-            - A new branch **MUST** be created. Proceed to **Step 3**.
-        - **ELSE** (the current branch is already a feature branch, e.g., `feature/add-login-page`):
-            - A new branch is **NOT** needed. Skip to **Step 4**.
+- **Action**: Run `git branch --show-current` to get the name of the currently active branch.
+- **Decision**:
+    - **IF** the branch is `main`, `master`, or `develop`, proceed to **Step 3**.
+    - **ELSE**, skip to **Step 4**.
 
 ### Step 3: Create a New Feature Branch (If Needed)
-**Goal**: To create a new, descriptively named branch off the primary branch.
-
-1.  **Determine Branch Name**:
-    - **Action**: Based on the task, create a descriptive branch name following the `type/short-description` convention.
-    - **Examples**: `feature/add-user-authentication`, `fix/resolve-login-bug`, `docs/update-readme`.
-2.  **Tool**: `execute_command`
-    - **Action**: Run the command `git checkout -b <new-branch-name>` to create and switch to the new branch.
+- **Action**: Determine a descriptive branch name (e.g., `feature/add-user-authentication`).
+- **Action**: Run `git checkout -b <new-branch-name>`.
 
 ### Step 4: Stage and Commit Changes
-**Goal**: To save the work with a clear, conventional commit message.
+- **Action**: Determine a conventional commit message (e.g., `feat(auth): implement password hashing`).
+- **Action**: Run `git add .`.
+- **Action**: Run `git commit -m "<your-commit-message>"`.
 
-1.  **Determine Commit Message**:
-    - **Action**: Write a commit message that follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-    - **Format**: `type(scope): short description`
-    - **Examples**: `feat(auth): implement password hashing`, `fix(api): correct user lookup error`, `docs(readme): add setup instructions`.
-2.  **Tool**: `execute_command`
-    - **Action**: Run the command `git add .` to stage all changes.
-    - **Action**: Run the command `git commit -m "<your-commit-message>"` to commit the staged changes.
+---
 
-### Step 5: Report the Result
-**Goal**: To inform the user of the outcome.
+### **Step 5: Push Branch to Remote**
+**Goal**: To upload the new branch and its commits to the central repository.
 
-- **Action**: Report back to the user, clearly stating what was done.
-- **Example (New Branch Created)**: "I have committed the changes to a new branch named `feature/add-user-authentication`."
-- **Example (Committed to Existing Branch)**: "I have added a new commit to the existing `feature/add-login-page` branch."
+1.  **Tool**: `execute_command`
+2.  **Action**: Run the command `git push -u origin <branch-name>`, replacing `<branch-name>` with the name of the current feature branch.
+    - The `-u` flag sets the upstream tracking branch.
+
+---
+
+### **Step 6: Initiate Pull Request**
+**Goal**: To hand off the completed work to the user for review and merging.
+
+1.  **Analyze Push Output**:
+    - **Action**: Carefully examine the output from the `git push` command. Look for a URL that can be used to create a pull request.
+    - **Example Output from GitHub**:
+      ```
+      ...
+      remote: Create a pull request for 'feature/add-user-authentication' on GitHub by visiting:
+      remote:      https://github.com/BennyEisner/Cline-Setup/pull/new/feature/add-user-authentication
+      ...
+      ```
+2.  **Report and Instruct**:
+    - **Action**: Report to the user that the branch has been successfully pushed.
+    - **Action**: Provide the user with the direct link to create the pull request. If no link is available in the output, instruct them to go to the repository's "Pull Requests" page to create it manually.
+
+### **Step 7: Final Handoff**
+- **Example Report**: "I have pushed the changes to the `feature/add-user-authentication` branch. To merge these changes into main, please create a pull request here: `https://github.com/BennyEisner/Cline-Setup/pull/new/feature/add-user-authentication`"
